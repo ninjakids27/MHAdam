@@ -1,0 +1,22 @@
+cmake_minimum_required(VERSION 3.10)
+project(OpenGLProject)
+
+set(CMAKE_CXX_STANDARD 17)
+
+# 1. Include Paths
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+# 2. Add GLFW as subdirectory (download from https://github.com/glfw/glfw/releases)
+# Extract GLFW to: c:\githubProject\M.D\src\glfw
+add_subdirectory(glfw)
+
+# 3. Add Sources
+file(GLOB_RECURSE SOURCES "*.cpp" "src/src/glad.c" "Implementation/**/*.cpp")
+
+add_executable(App ${SOURCES})
+
+# 4. Link Libraries
+find_package(OpenGL REQUIRED)
+target_link_libraries(App glfw OpenGL::GL)
+
+set_target_properties(App PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
